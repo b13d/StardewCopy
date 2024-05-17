@@ -1,0 +1,91 @@
+[gd_scene load_steps=8 format=3 uid="uid://dlelyhgpn0q84"]
+
+[ext_resource type="Script" path="res://scenes/wood_item.gd" id="1_g6qht"]
+[ext_resource type="Texture2D" uid="uid://dmkq632xx8141" path="res://sprites/Wood.png" id="2_hpm8v"]
+[ext_resource type="Texture2D" uid="uid://o8vsovci0wwx" path="res://sprites/WoodOutline.png" id="3_v5dmf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fu0xb"]
+
+[sub_resource type="Animation" id="Animation_p5mjf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.465116, 0.454545)]
+}
+
+[sub_resource type="Animation" id="Animation_csbtr"]
+resource_name = "spawn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [6.28319, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0.465116, 0.454545)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fkrgg"]
+_data = {
+"RESET": SubResource("Animation_p5mjf"),
+"spawn": SubResource("Animation_csbtr")
+}
+
+[node name="WoodItem" type="Area2D"]
+script = ExtResource("1_g6qht")
+sprite_wood = ExtResource("2_hpm8v")
+sprite_wood_outline = ExtResource("3_v5dmf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_fu0xb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 5
+scale = Vector2(0.465116, 0.454545)
+texture = ExtResource("2_hpm8v")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fkrgg")
+}
+autoplay = "spawn"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

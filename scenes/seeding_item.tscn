@@ -1,0 +1,95 @@
+[gd_scene load_steps=9 format=3 uid="uid://ck53jv6tqeda1"]
+
+[ext_resource type="Script" path="res://scripts/seeding_item.gd" id="1_os1ee"]
+[ext_resource type="Texture2D" uid="uid://bupis6luy0rqi" path="res://sprites/Seeding1.png" id="2_uxued"]
+[ext_resource type="Texture2D" uid="uid://b7nueagtbi6as" path="res://sprites/SeedingOutline.png" id="3_tk5as"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fu0xb"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yg8j1"]
+load_path = "res://.godot/imported/Seeding1.png-1ec597fa1994634ba7a2f915dc896748.ctex"
+
+[sub_resource type="Animation" id="Animation_ki50n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.465116, 0.454545)]
+}
+
+[sub_resource type="Animation" id="Animation_rtwre"]
+resource_name = "spawn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [6.28319, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_esqsc"]
+_data = {
+"RESET": SubResource("Animation_ki50n"),
+"spawn": SubResource("Animation_rtwre")
+}
+
+[node name="SeedingItem" type="Area2D"]
+script = ExtResource("1_os1ee")
+sprite_seeding = ExtResource("2_uxued")
+sprite_seeding_outline = ExtResource("3_tk5as")
+current_item = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_fu0xb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 5
+scale = Vector2(0.465116, 0.454545)
+texture = SubResource("CompressedTexture2D_yg8j1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_esqsc")
+}
+autoplay = "spawn"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

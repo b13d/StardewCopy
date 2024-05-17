@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://u4j8shbnurpw"]
+
+[ext_resource type="Script" path="res://scripts/tree.gd" id="1_iay4n"]
+[ext_resource type="Texture2D" uid="uid://cpjsyy8f8dl3j" path="res://sprites/objects/objects.png" id="1_o1txu"]
+[ext_resource type="PackedScene" uid="uid://dlelyhgpn0q84" path="res://scenes/wood_item.tscn" id="2_mgrkx"]
+[ext_resource type="PackedScene" uid="uid://ck53jv6tqeda1" path="res://scenes/seeding_item.tscn" id="3_vrs33"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d55ko"]
+size = Vector2(26, 26)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fx748"]
+atlas = ExtResource("1_o1txu")
+region = Rect2(0.633953, 80.6155, 46.4036, 63.4909)
+
+[sub_resource type="Animation" id="Animation_k25pr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4rrhs"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0404225, 0.0798315, 0.121048, 0.163143, 0.18826),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-3, 3), Vector2(2, -1), Vector2(6, 4), Vector2(2, -5), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qb75o"]
+_data = {
+"RESET": SubResource("Animation_k25pr"),
+"hit": SubResource("Animation_4rrhs")
+}
+
+[node name="Tree" type="StaticBody2D" groups=["Tree"]]
+script = ExtResource("1_iay4n")
+wood_prefab = ExtResource("2_mgrkx")
+seeding_prefab = ExtResource("3_vrs33")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Tree"]]
+position = Vector2(0, 12)
+shape = SubResource("RectangleShape2D_d55ko")
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["Tree"]]
+z_index = 20
+texture = SubResource("AtlasTexture_fx748")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qb75o")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

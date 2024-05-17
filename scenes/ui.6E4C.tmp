@@ -1,0 +1,153 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1lgne52qf6wc"]
+
+[ext_resource type="Script" path="res://scripts/ui.gd" id="1_7c8lw"]
+[ext_resource type="Texture2D" uid="uid://cq4nqtho6t4dx" path="res://sprites/TreeIcon.png" id="1_8q0kn"]
+[ext_resource type="Texture2D" uid="uid://dmkq632xx8141" path="res://sprites/Wood.png" id="2_2ic2o"]
+[ext_resource type="Texture2D" uid="uid://bupis6luy0rqi" path="res://sprites/Seeding1.png" id="3_wodb1"]
+[ext_resource type="Texture2D" uid="uid://cyvjj4jsu3s6v" path="res://sprites/Inventory.png" id="5_1eeus"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t2ar3"]
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("label_count_wood", "label_count_seeding", "items_in_inventory", "inventory_place")]
+script = ExtResource("1_7c8lw")
+label_count_wood = NodePath("Panel/HBoxContainer/TextureRect/ItemInventory/LabelCountWood")
+label_count_seeding = NodePath("Panel/HBoxContainer/TextureRect2/ItemInventory/LabelCountSeeding")
+items_in_inventory = [null, null]
+inventory_place = [NodePath("Panel/HBoxContainer/TextureRect"), NodePath("Panel/HBoxContainer/TextureRect2"), NodePath("Panel/HBoxContainer/TextureRect3"), NodePath("Panel/HBoxContainer/TextureRect4"), NodePath("Panel/HBoxContainer/TextureRect5"), NodePath("Panel/HBoxContainer/TextureRect6")]
+
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_left = 23.0
+offset_top = 25.0
+offset_right = 121.0
+offset_bottom = 92.0
+columns = 2
+
+[node name="TextureTree" type="TextureRect" parent="."]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -111.0
+offset_top = 19.0
+offset_right = -22.0
+offset_bottom = 108.0
+grow_horizontal = 0
+texture = ExtResource("1_8q0kn")
+expand_mode = 5
+
+[node name="Panel" type="Panel" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+anchors_preset = -1
+anchor_left = 0.522569
+anchor_top = 0.029321
+anchor_right = 0.972
+anchor_bottom = 0.169
+offset_right = 0.255981
+offset_bottom = -7.51201
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_1eeus")
+expand_mode = 3
+
+[node name="ItemInventory" type="Panel" parent="Panel/HBoxContainer/TextureRect"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 3.00049
+offset_top = 6.99999
+offset_right = 59.0005
+offset_bottom = 61.0
+scale = Vector2(1.41, 1.41)
+
+[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/TextureRect/ItemInventory"]
+layout_mode = 0
+offset_right = 43.0
+offset_bottom = 44.0
+texture = ExtResource("2_2ic2o")
+
+[node name="LabelCountWood" type="Label" parent="Panel/HBoxContainer/TextureRect/ItemInventory"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -44.6525
+offset_top = -24.922
+offset_right = -4.65248
+offset_bottom = -1.92199
+grow_horizontal = 0
+grow_vertical = 0
+text = "0"
+label_settings = SubResource("LabelSettings_t2ar3")
+horizontal_alignment = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Panel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_1eeus")
+expand_mode = 3
+
+[node name="ItemInventory" type="Panel" parent="Panel/HBoxContainer/TextureRect2"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 3.00049
+offset_top = 6.99999
+offset_right = 59.0005
+offset_bottom = 61.0
+scale = Vector2(1.41, 1.41)
+
+[node name="TextureRect" type="TextureRect" parent="Panel/HBoxContainer/TextureRect2/ItemInventory"]
+layout_mode = 0
+offset_right = 43.0
+offset_bottom = 44.0
+texture = ExtResource("3_wodb1")
+
+[node name="LabelCountSeeding" type="Label" parent="Panel/HBoxContainer/TextureRect2/ItemInventory"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -44.6525
+offset_top = -24.922
+offset_right = -4.65248
+offset_bottom = -1.92199
+grow_horizontal = 0
+grow_vertical = 0
+text = "0"
+label_settings = SubResource("LabelSettings_t2ar3")
+horizontal_alignment = 2
+
+[node name="TextureRect3" type="TextureRect" parent="Panel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_1eeus")
+expand_mode = 3
+
+[node name="TextureRect4" type="TextureRect" parent="Panel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_1eeus")
+expand_mode = 3
+
+[node name="TextureRect5" type="TextureRect" parent="Panel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_1eeus")
+expand_mode = 3
+
+[node name="TextureRect6" type="TextureRect" parent="Panel/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_1eeus")
+expand_mode = 3

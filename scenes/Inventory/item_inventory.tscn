@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://cur8abolxl12o"]
+
+[ext_resource type="Texture2D" uid="uid://dmkq632xx8141" path="res://sprites/Wood.png" id="1_v46qi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t2ar3"]
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[node name="ItemInventory" type="Panel"]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 56.0
+offset_bottom = 54.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 43.0
+offset_bottom = 44.0
+texture = ExtResource("1_v46qi")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "1"
+label_settings = SubResource("LabelSettings_t2ar3")
+horizontal_alignment = 2

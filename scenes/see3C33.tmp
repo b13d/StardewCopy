@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://07hiqwodg4ys"]
+
+[ext_resource type="Script" path="res://scripts/seeding.gd" id="1_4vn8e"]
+[ext_resource type="Texture2D" uid="uid://3kpgqlic85p5" path="res://sprites/Seeding2.png" id="1_b1vlq"]
+[ext_resource type="Texture2D" uid="uid://bupis6luy0rqi" path="res://sprites/Seeding1.png" id="1_kdsy7"]
+[ext_resource type="Texture2D" uid="uid://cv7xk3450j4c" path="res://sprites/Seeding3.png" id="1_occ3k"]
+[ext_resource type="PackedScene" uid="uid://u4j8shbnurpw" path="res://scenes/tree.tscn" id="2_w8xi3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y0a28"]
+size = Vector2(3, 9)
+
+[sub_resource type="Animation" id="Animation_xmnbu"]
+resource_name = "idle"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_kdsy7"), ExtResource("1_b1vlq"), ExtResource("1_occ3k"), ExtResource("1_occ3k")]
+}
+
+[sub_resource type="Animation" id="Animation_uo7qo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_occ3k")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cbikq"]
+_data = {
+"RESET": SubResource("Animation_uo7qo"),
+"idle": SubResource("Animation_xmnbu")
+}
+
+[node name="Seeding" type="StaticBody2D"]
+script = ExtResource("1_4vn8e")
+tree = ExtResource("2_w8xi3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 2.5)
+shape = SubResource("RectangleShape2D_y0a28")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_occ3k")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cbikq")
+}
+
+[node name="TimerEvolution" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="TimerEvolution" to="." method="_on_timer_evolution_timeout"]
